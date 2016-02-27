@@ -16,7 +16,7 @@ case class GridPoint(x: X, y: Y) {
   }
 
   def neighborOf(other: GridPoint): Neighbor = {
-    // (x-1,y),(x+1,y),(x,y-1),(x,y+1)
+    // (x-1,y),(x+1,y),(x,y-1),(x,y+1)は隣接として扱う
     val neighbors = Seq(
       (X(x.value - 1), y),
       (X(x.value + 1), y),

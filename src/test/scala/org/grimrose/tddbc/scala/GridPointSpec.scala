@@ -48,26 +48,23 @@ class GridPointSpec extends FunSpec with DiagrammedAssertions with TableDrivenPr
     }
 
     describe("課題2") {
-      it("格子点(x,y)は、４つの格子点(x-1,y),(x+1,y),(x,y-1),(x,y+1)と隣り合っているもの") {
-        val gp11 = GridPoint(X(1), Y(1))
-        assert(gp11.neighborOf(GridPoint(X(0),Y(1))) == Neighbor)
-        assert(gp11.neighborOf(GridPoint(X(2),Y(1))) == Neighbor)
-        assert(gp11.neighborOf(GridPoint(X(1),Y(0))) == Neighbor)
-        assert(gp11.neighborOf(GridPoint(X(1),Y(2))) == Neighbor)
-      }
-      it("(4,7) と (3,7) は隣り合っている") {
-        val gp47 = GridPoint(X(4), Y(7))
-        val gp37 = GridPoint(X(3), Y(7))
-        assert(gp47.neighborOf(gp37) == Neighbor)
-      }
-      it("(4,7) と (3,8) は隣り合っていない") {
-        val gp47 = GridPoint(X(4), Y(7))
-        val gp38 = GridPoint(X(3), Y(8))
-        assert(gp47.neighborOf(gp38) == NotNeighbor)
-      }
-      it("(4,7) と (4,7) は隣り合っていない") {
-        val gp47 = GridPoint(X(4), Y(7))
-        assert(gp47.neighborOf(gp47) == NotNeighbor)
+      val fixtures = Table(
+        ("自分", "相手", "expected"),
+        ((X(1), Y(1)), (X(0), Y(1)), Neighbor),
+        ((X(1), Y(1)), (X(2), Y(1)), Neighbor),
+        ((X(1), Y(1)), (X(1), Y(0)), Neighbor),
+        ((X(1), Y(1)), (X(1), Y(2)), Neighbor),
+        ((X(4), Y(7)), (X(3), Y(7)), Neighbor),
+        ((X(4), Y(7)), (X(3), Y(8)), NotNeighbor),
+        ((X(4), Y(7)), (X(4), Y(7)), NotNeighbor)
+      )
+
+      it("隣り合っているか判定できること") {
+        forAll(fixtures) { case ((x1, y1), (x2, y2), expected) =>
+          val gp1 = GridPoint(x1, y1)
+          val gp2 = GridPoint(x2, y2)
+          assert(gp1.neighborOf(gp2) == expected)
+        }
       }
     }
   }
