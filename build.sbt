@@ -1,4 +1,4 @@
-name := """tddbc201602"""
+name := "tddbc-201602"
 
 version := "1.0"
 
