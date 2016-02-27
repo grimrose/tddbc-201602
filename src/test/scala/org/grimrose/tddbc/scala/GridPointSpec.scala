@@ -47,5 +47,29 @@ class GridPointSpec extends FunSpec with DiagrammedAssertions with TableDrivenPr
       }
     }
 
+    describe("課題2") {
+      it("格子点(x,y)は、４つの格子点(x-1,y),(x+1,y),(x,y-1),(x,y+1)と隣り合っているもの") {
+        val gp11 = GridPoint(X(1), Y(1))
+        assert(gp11.neighborOf(GridPoint(X(0),Y(1))) == Neighbor)
+        assert(gp11.neighborOf(GridPoint(X(2),Y(1))) == Neighbor)
+        assert(gp11.neighborOf(GridPoint(X(1),Y(0))) == Neighbor)
+        assert(gp11.neighborOf(GridPoint(X(1),Y(2))) == Neighbor)
+      }
+      it("(4,7) と (3,7) は隣り合っている") {
+        val gp47 = GridPoint(X(4), Y(7))
+        val gp37 = GridPoint(X(3), Y(7))
+        assert(gp47.neighborOf(gp37) == Neighbor)
+      }
+      it("(4,7) と (3,8) は隣り合っていない") {
+        val gp47 = GridPoint(X(4), Y(7))
+        val gp38 = GridPoint(X(3), Y(8))
+        assert(gp47.neighborOf(gp38) == NotNeighbor)
+      }
+      it("(4,7) と (4,7) は隣り合っていない") {
+        val gp47 = GridPoint(X(4), Y(7))
+        assert(gp47.neighborOf(gp47) == NotNeighbor)
+      }
+    }
   }
+
 }
